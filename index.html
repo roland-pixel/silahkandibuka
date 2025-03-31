@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selamat Hari Raya Idul Fitri</title>
+    <style>
+        /* Reset dan dasar */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f7efe0, #d9c2a7);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #5a3e36;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+
+        /* Container amplop */
+        .envelope-container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            perspective: 1000px;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        /* Teks instruksi dengan panah bawah */
+        .instruction {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            color: #5a3e36;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+            z-index: 6;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            text-align: center;
+        }
+
+        .instruction .arrow {
+            display: block;
+            font-size: 2rem;
+            margin-top: 5px;
+        }
+
+        .envelope-container.open .instruction {
+            opacity: 0;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border: 2px solid #c8a97e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Video yang mengisi seluruh amplop, tersembunyi saat load pertama */
+        .envelope video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            display: none;
+        }
+
+        /* Tampilkan video saat amplop dibuka */
+        .envelope-container.open video {
+            display: block;
+        }
+
+        /* Flap (tutup amplop) */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: #fff;
+            border-bottom: 2px solid #c8a97e;
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            z-index: 2;
+        }
+
+        /* Animasi membuka flap */
+        .envelope-container.open .flap {
+            transform: rotateX(-160deg);
+        }
+
+        /* Efek hover */
+        .envelope-container:hover .envelope {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Dekorasi: ketupat */
+        .ketupat {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            opacity: 0.9;
+            z-index: 8;
+        }
+
+        /* Dekorasi: bulan sabit */
+        .crescent {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            opacity: 0.8;
+            z-index: 8;
+        }
+
+        /* Dekorasi partikel lembut */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: translateY(-15px);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(0px);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Selamat Hari Raya Idul Fitri!</h1>
+
+    <!-- Dekorasi online: gambar ketupat dan bulan sabit -->
+    <img src="https://i.imgur.com/w1Y3O7S.png" alt="Ketupat" class="ketupat" />
+    <img src="https://i.imgur.com/zg1Y2eL.png" alt="Bulan Sabit" class="crescent" />
+
+    <!-- Container amplop -->
+    <div class="envelope-container" id="envelope">
+        <div class="instruction">
+            Buka THR Anda
+            <span class="arrow">&#x2193;</span>
+        </div>
+        <div class="envelope">
+            <!-- Video tersembunyi awalnya -->
+            <video controls>
+                <source src="halo.mp4" type="video/mp4">
+                Browser kamu tidak mendukung pemutaran video.
+            </video>
+            <!-- Flap amplop -->
+            <div class="flap"></div>
+        </div>
+    </div>
+
+    <!-- Script untuk partikel dekoratif dan interaksi amplop -->
+    <script>
+        const createParticles = (num) => {
+            for (let i = 0; i < num; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 6 + 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 3 + 3}s`;
+                document.body.appendChild(particle);
+            }
+        };
+        createParticles(20);
+        // aaa
+        // Event untuk membuka amplop
+        const envelope = document.getElementById('envelope');
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('open');
+        });
+    </script>
+</body>
+
+</html>
